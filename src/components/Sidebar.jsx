@@ -6,7 +6,7 @@ const Sidebar = () => {
       <Link to={"/"} className="flex items-center justify-center pt-6">
         <img
           className="sm:w-48 w-40"
-          src={"/src/assets/LOGO VIDE 2.png"}
+          src={"https://i.postimg.cc/W1BsKp5s/LOGO-VIDE-2.png"}
           alt="uniconfort meuble logo"
         />
       </Link>
