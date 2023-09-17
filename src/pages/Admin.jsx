@@ -15,7 +15,7 @@ const Admin = () => {
   return (
     <div>
       {!loggedIn ? (
-        <div className="absolute top-[50%] translate-x-[50%] -translate-y-[50%] rounded-xl w-[50vw] h-[50vh] p-16 bg-[#11334f]">
+        <div className="absolute top-[50%] translate-x-[50%] -translate-y-[50%] rounded-xl w-[50vw] h-[80vh] p-16 bg-[#11334f]">
           <h1 className="text-2xl text-center text-white">
             Log In To Dashboard
           </h1>

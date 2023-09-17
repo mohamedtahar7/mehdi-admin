@@ -15,15 +15,15 @@ const Sidebar = () => {
           to={"/admin/products"}
           className="flex hover:opacity-80 transition-all justify-center gap-4 items-center"
         >
-          <BsFillCartFill className="text-white" size={35} />
-          <h2 className="text-white text-2xl">View All Products</h2>
+          <BsFillCartFill className="text-white" size={30} />
+          <h2 className="text-white text-xl">View All Products</h2>
         </Link>
         <Link
           to={"/admin/add"}
           className="flex hover:opacity-80 transition-all gap-4 items-center justify-center"
         >
-          <BsFillCartPlusFill className="text-white" size={35} />
-          <h2 className="text-2xl text-white">Add a Product</h2>
+          <BsFillCartPlusFill className="text-white" size={30} />
+          <h2 className="text-xl text-white">Add a Product</h2>
         </Link>
       </div>
     </div>
