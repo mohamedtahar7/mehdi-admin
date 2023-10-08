@@ -9,8 +9,8 @@ const AddProduct = () => {
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
-  const [image1, setImage1] = useState("");
-  const [image2, setImage2] = useState("");
+  const [img1, setImg1] = useState(null);
+  const [img2, setImg2] = useState(null);
   const [dimensions, setDimensions] = useState("");
   const newCategories = [
     categories[1],
@@ -18,9 +18,25 @@ const AddProduct = () => {
     categories[3],
     categories[4],
   ];
-  const images = [image1, image2];
   const navigate = useNavigate();
-  const handleCreate = () => {
+  const uploadImg = async (img) => {
+    const data = new FormData();
+    data.append("file", img);
+    data.append("upload_preset", "uniconfort_preset");
+    try {
+      let api = `https://api.cloudinary.com/v1_1/dlzmmzpkw/image/upload`;
+      const res = await axios.post(api, data);
+      const { secure_url } = res.data;
+      console.log(secure_url);
+      return secure_url;
+    } catch (error) {
+      alert(error);
+    }
+  };
+  const handleCreate = async () => {
+    const imgLink1 = await uploadImg(img1);
+    const imgLink2 = await uploadImg(img2);
+    const images = [imgLink1, imgLink2];
     const data = { name, price, category, description, images, dimensions };
     axios
       .post(`${apiLink}/products`, data)
@@ -33,6 +49,7 @@ const AddProduct = () => {
         console.log(err);
       });
   };
+  console.log(img1);
   return (
     <div className="flex items-center">
       <Sidebar />
@@ -61,10 +78,12 @@ const AddProduct = () => {
           >
             <option value="">Choose a Category</option>
             {newCategories.map((category, index) => (
-              <option value={category}>{category}</option>
+              <option key={index} value={category}>
+                {category}
+              </option>
             ))}
           </select>
-          <input
+          {/* <input
             className="py-1 px-4 bg-gray-300 placeholder-black w-[40%]"
             type="text"
             placeholder="Image 1"
@@ -79,13 +98,29 @@ const AddProduct = () => {
             placeholder="Image 2"
             value={image2}
             onChange={(e) => setImage2(e.target.value)}
-          />
+          /> */}
           <input
             className="py-1 px-4 bg-gray-300 placeholder-black w-[40%]"
             type="text"
             placeholder="Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+          />
+          <input
+            className="px-2 text-white bg-[#888]"
+            onChange={(e) => {
+              setImg1(e.target.files[0]);
+            }}
+            type="file"
+            placeholder="Image 1 Upload"
+          />
+          <input
+            onChange={(e) => {
+              setImg2(e.target.files[0]);
+            }}
+            className="px-2 text-white bg-[#888]"
+            type="file"
+            placeholder="Image 2 Upload"
           />
           <input
             className="py-1 px-4 bg-gray-300 placeholder-black w-[40%]"
