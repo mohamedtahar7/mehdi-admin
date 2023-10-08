@@ -4,8 +4,11 @@ import { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import { categories } from "../utils/categories";
 import { apiLink } from "../utils/apiLink";
+import Spinner from "../components/Spinner";
+import CrudSpinner from "../components/CrudSpinner";
 const AddProduct = () => {
   const [name, setName] = useState("");
+  const [loading, setLoading] = useState(false);
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
@@ -34,6 +37,7 @@ const AddProduct = () => {
     }
   };
   const handleCreate = async () => {
+    setLoading(true);
     const imgLink1 = await uploadImg(img1);
     const imgLink2 = await uploadImg(img2);
     const images = [imgLink1, imgLink2];
@@ -41,6 +45,7 @@ const AddProduct = () => {
     axios
       .post(`${apiLink}/products`, data)
       .then(() => {
+        setLoading(false);
         alert("Product Added Successfully!");
         navigate("/admin/products");
       })
@@ -129,12 +134,18 @@ const AddProduct = () => {
             value={dimensions}
             onChange={(e) => setDimensions(e.target.value)}
           />
-          <button
-            className="bg-[#11334f] text-xl py-2 px-4 rounded-lg text-white"
-            onClick={handleCreate}
-          >
-            Add Product
-          </button>
+          {loading ? (
+            <div className="-mt-32">
+              <CrudSpinner />
+            </div>
+          ) : (
+            <button
+              className="bg-[#11334f] text-xl py-2 px-4 rounded-lg text-white"
+              onClick={handleCreate}
+            >
+              Add Product
+            </button>
+          )}
         </div>
       </div>
     </div>
