@@ -15,12 +15,12 @@ const AddProduct = () => {
   const [img1, setImg1] = useState(null);
   const [img2, setImg2] = useState(null);
   const [dimensions, setDimensions] = useState("");
-  const newCategories = [
-    categories[1],
-    categories[2],
-    categories[3],
-    categories[4],
-  ];
+  // const newCategories = [
+  //   categories[1],
+  //   categories[2],
+  //   categories[3],
+  //   categories[4],
+  // ];
   const navigate = useNavigate();
   const uploadImg = async (img) => {
     const data = new FormData();
@@ -82,7 +82,7 @@ const AddProduct = () => {
             onChange={(e) => setCategory(e.target.value)}
           >
             <option value="">Choose a Category</option>
-            {newCategories.map((category, index) => (
+            {categories.map((category, index) => (
               <option key={index} value={category}>
                 {category}
               </option>
